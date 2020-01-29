@@ -4,7 +4,8 @@
 #include <cassert>
 
 Liste::Liste() {
-  /* votre code ici */
+  taille_list = 0;
+  prem = nullptr;
 }
 
 Liste::Liste(const Liste& autre) {
@@ -21,52 +22,85 @@ Liste::~Liste() {
 }
 
 void Liste::ajouter_en_tete(int valeur) {
-  /* votre code ici */
+    taille_list++;
+    Cellule *c = new Cellule(valeur);
+    c->suivant = prem;
+    prem = c;
 }
 
 void Liste::ajouter_en_queue(int valeur) {
-  /* votre code ici */
+  Cellule *c = new Cellule(valeur);
+  Cellule *ctemp = prem;
+  while(ctemp->suivant != nullptr)
+  {
+    ctemp = ctemp->suivant;
+  }
+  taille_list++;
+  ctemp->suivant = c;
 }
 
 void Liste::supprimer_en_tete() {
-  /* votre code ici */
+  Cellule *ctemp = prem;
+  prem = ctemp->suivant;
+  delete ctemp;
+  if(taille_list>0)
+    taille_list -= 1;
 }
 
 Cellule* Liste::tete() {
-  /* votre code ici */
-  return nullptr ;
+  return prem ;
 }
 
 const Cellule* Liste::tete() const {
-  /* votre code ici */
-  return nullptr ;
+  return prem ;
 }
 
 Cellule* Liste::queue() {
-  /* votre code ici */
-  return nullptr ;
+  Cellule *ctemp = prem;
+  while(ctemp->suivant != nullptr)
+  {
+    ctemp = ctemp->suivant;
+  }
+  return ctemp;
 }
 
 const Cellule* Liste::queue() const {
-  /* votre code ici */
-  return nullptr ;
+  Cellule *ctemp = prem;
+  while(ctemp->suivant != nullptr)
+  {
+    ctemp = ctemp->suivant;
+  }
+  return ctemp;
 }
 
 int Liste::taille() const {
-  /* votre code ici */
-  return 0 ;
+  return taille_list ;
 }
 
 Cellule* Liste::recherche(int valeur) {
-  /* votre code ici */
-  return nullptr ;
+  Cellule *c = prem;
+  while(c->suivant != nullptr && c->valeur!=valeur)
+  {
+    c = c->suivant;
+  }
+  return c;
 }
 
 const Cellule* Liste::recherche(int valeur) const {
-  /* votre code ici */
-  return nullptr ;
+  Cellule *c = prem;
+  while(c->suivant != nullptr && c->valeur!=valeur)
+  {
+    c = c->suivant;
+  }
+  return c;
 }
 
 void Liste::afficher() const {
-  /* votre code ici */
+  Cellule *ctemp = prem;
+  while(ctemp != nullptr)
+  {
+    std::cout << ctemp->valeur << " : ";
+    ctemp = ctemp->suivant;
+  }
+  std::cout << std::endl;
 }

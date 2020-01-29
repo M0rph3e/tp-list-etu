@@ -48,8 +48,8 @@ class Liste {
 
   private :
 
-    /* votre code ici */
-
+   Cellule* prem; 
+   int taille_list;
 } ;
 
 #endif
