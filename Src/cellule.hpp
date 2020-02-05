@@ -11,6 +11,8 @@ class Cellule {
   Cellule();
   Cellule(int val) ;
 
+ /*Destructeur*/
+  ~Cellule() ;
 
 } ;
 

@@ -9,16 +9,53 @@ Liste::Liste() {
 }
 
 Liste::Liste(const Liste& autre) {
-  /* votre code ici */
+  prem = new Cellule(autre.tete()->valeur);
+  const Cellule * ctemp = autre.tete();
+  Cellule *ctemp_insert =prem;
+  while(ctemp->suivant != nullptr)
+  {
+    ctemp_insert->suivant = new Cellule(ctemp->suivant->valeur);
+    ctemp_insert = ctemp_insert->suivant;
+    ctemp = ctemp->suivant;
+  }
 }
 
 Liste& Liste::operator=(const Liste& autre) {
-  /* votre code ici */
+  Cellule *c = prem;
+  //verif list nsuivanton vide
+  if(c!= nullptr)
+  {
+    /*while(c->suivant != nullptr)
+    {
+        ctemp = c->suivant;
+        c = ctemp; 
+    }*/
+    delete c;
+    prem = nullptr;
+    taille_list = 0;
+  }
+
+  prem = new Cellule(autre.tete()->valeur);
+
+  taille_list = 1;
+  const Cellule *ctemp_autre = autre.tete();
+  Cellule * ctemp_insert = prem;
+  while(ctemp_autre->suivant != nullptr)
+  {
+    taille_list++;
+    ctemp_insert -> suivant = new Cellule(ctemp_autre->suivant->valeur);
+    ctemp_insert = ctemp_insert->suivant;
+    ctemp_autre = ctemp_autre->suivant;
+  }
+
+
+
+
   return *this ;
 }
 
 Liste::~Liste() {
-  /* votre code ici */
+  delete prem;
 }
 
 void Liste::ajouter_en_tete(int valeur) {
@@ -40,11 +77,12 @@ void Liste::ajouter_en_queue(int valeur) {
 }
 
 void Liste::supprimer_en_tete() {
-  Cellule *ctemp = prem;
-  prem = ctemp->suivant;
+  Cellule *ctemp;
+
+  ctemp =prem;
+  prem = prem->suivant;
+  ctemp->suivant = nullptr; //dechainage
   delete ctemp;
-  if(taille_list>0)
-    taille_list -= 1;
 }
 
 Cellule* Liste::tete() {
@@ -79,7 +117,7 @@ int Liste::taille() const {
 
 Cellule* Liste::recherche(int valeur) {
   Cellule *c = prem;
-  while(c->suivant != nullptr && c->valeur!=valeur)
+  while(c!=nullptr && c->valeur!=valeur)
   {
     c = c->suivant;
   }
@@ -88,7 +126,7 @@ Cellule* Liste::recherche(int valeur) {
 
 const Cellule* Liste::recherche(int valeur) const {
   Cellule *c = prem;
-  while(c->suivant != nullptr && c->valeur!=valeur)
+  while(c != nullptr && c->valeur!=valeur)
   {
     c = c->suivant;
   }

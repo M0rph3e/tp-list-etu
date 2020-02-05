@@ -4,3 +4,6 @@ Cellule::Cellule():suivant(nullptr) {}
 
 Cellule::Cellule(int val):valeur(val),suivant(nullptr){}
 
+Cellule::~Cellule(){
+    delete suivant;
+}
